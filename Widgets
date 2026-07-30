@@ -1,0 +1,82 @@
+import 'package:flutter/material.dart';
+void main(){
+  runApp(
+    MaterialApp(
+      home : Scaffold(
+        appBar : AppBar(
+          title  : Text('Layouts' ),
+         
+          
+        ),
+        
+        body : Center(
+          child:  Column(
+            mainAxisAlignment : MainAxisAlignment.spaceEvenly,
+            children : [
+              const Row(
+                mainAxisAlignment : MainAxisAlignment.spaceEvenly,
+                children : [
+                  
+               
+              
+              Icon(
+                Icons.home,
+                size : 50,
+                color : Colors.blue,
+              ),
+              Icon(
+                Icons.fax_rounded,
+                size : 50,
+                color : Colors.green,
+              ),
+              Icon(
+                Icons.person,
+                size : 50,
+                color : Colors.yellow,
+              ),
+               ],
+              ),
+              
+              SizedBox(width : 20),
+              Container(
+                height : 150,
+                width : 150,
+                color : Colors.red,
+                child : Center(
+                  child : Container(
+                    height : 70,
+                    width : 70,
+                    color : Colors.green,
+                    
+                  ),
+                  
+                
+                ),
+              ),
+                        
+            ]
+          ),
+        ),
+      ),
+    ),
+   );
+    }
+    
+/*import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Center Example')),
+        body: Center(
+          child: Text(
+            'LAYOUT',
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+    ),
+  );
+}*/
+

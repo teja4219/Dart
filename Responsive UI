@@ -1,0 +1,31 @@
+// Responsive UI
+
+import 'package:flutter/material.dart';
+void main(){
+  runApp( MyApp());
+    
+}
+class MyApp extends StatelessWidget{
+  
+  @override
+  Widget build(BuildContext context){ //to build app
+    return MaterialApp( // to extract the all properties from MaterialApp
+      home : Scaffold(  //frame of the app
+        appBar : AppBar(  //place at top left corner
+          backgroundColor : Colors.blueGrey,
+          title : Text('Flutter Lab'),
+         ),
+        body : Container(
+          color : Colors.amber,
+          
+          child : const Center(
+          
+            child : Text('Hello Dart',style : TextStyle(fontSize:30 )),
+           )
+          ), 
+        
+        
+      ),
+    );
+  }
+}

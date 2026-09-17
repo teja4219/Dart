@@ -1,0 +1,145 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(
+  MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: StudentForm(),
+  ),
+);
+
+class StudentForm extends StatefulWidget {
+  const StudentForm({super.key});
+
+  @override
+  State<StudentForm> createState() => _StudentFormState();
+}
+
+class _StudentFormState extends State<StudentForm> {
+  final formKey = GlobalKey<FormState>();
+  String? department, gender;
+  bool terms = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Student Registration")),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Form(
+          key: formKey,
+          child: ListView(
+            children: [
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: "Student Name",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) =>
+                    v!.trim().isEmpty ? "Name is required" : null,
+              ),
+
+              const SizedBox(height: 15),
+
+              TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                decoration: const InputDecoration(
+                  labelText: "Email",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) {
+                  if (v!.trim().isEmpty) return "Email is required";
+                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+$')
+                      .hasMatch(v.trim())) {
+                    return "Enter a valid email";
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 15),
+
+              TextFormField(
+                keyboardType: TextInputType.phone,
+                decoration: const InputDecoration(
+                  labelText: "Phone Number",
+                  border: OutlineInputBorder(),
+                ),
+                validator: (v) {
+                  if (v!.trim().isEmpty) return "Phone is required";
+                  if (!RegExp(r'^\d{10}$').hasMatch(v.trim())) {
+                    return "Phone must contain exactly 10 digits";
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 15),
+
+              DropdownButtonFormField<String>(
+                decoration: const InputDecoration(
+                  labelText: "Department",
+                  border: OutlineInputBorder(),
+                ),
+                items: ["CSE", "ECE", "ME", "Civil"]
+                    .map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(e),
+                        ))
+                    .toList(),
+                onChanged: (v) => department = v,
+                validator: (v) =>
+                    v == null ? "Select a department" : null,
+              ),
+
+              const SizedBox(height: 10),
+
+              const Text("Gender"),
+              RadioListTile(
+                title: const Text("Male"),
+                value: "Male",
+                groupValue: gender,
+                onChanged: (v) => setState(() => gender = v),
+              ),
+              RadioListTile(
+                title: const Text("Female"),
+                value: "Female",
+                groupValue: gender,
+                onChanged: (v) => setState(() => gender = v),
+              ),
+
+              CheckboxListTile(
+                title: const Text("I accept Terms & Conditions"),
+                value: terms,
+                onChanged: (v) => setState(() => terms = v!),
+              ),
+
+              ElevatedButton(
+                onPressed: () {
+                  if (!formKey.currentState!.validate()) return;
+
+                  if (!terms) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Please accept Terms & Conditions",
+                        ),
+                      ),
+                    );
+                    return;
+                  }
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Registration Successful!"),
+                    ),
+                  );
+                },
+                child: const Text("Submit"),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
